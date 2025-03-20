@@ -10,9 +10,9 @@ public interface IDatabaseService
     public Task<DatabaseUpdateResponse> GetDatabaseUpdatesAsync(DateTime delta);
 }
 
-public class DatabaseService: ServiceBase, IDatabaseService
+public class DatabaseService : ServiceBase, IDatabaseService
 {
-    public DatabaseService(IUnitOfWork unitOfWork) : base(unitOfWork) {}
+    public DatabaseService(IUnitOfWork unitOfWork) : base(unitOfWork) { }
 
     public async Task<DatabaseUpdateResponse> GetDatabaseUpdatesAsync(DateTime delta)
     {

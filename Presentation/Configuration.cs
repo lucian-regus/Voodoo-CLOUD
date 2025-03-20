@@ -94,7 +94,8 @@ public static class Configuration
         services
             .AddScoped<IUnitOfWork, UnitOfWork>()
             .AddScoped<IServiceBase, ServiceBase>()
-            .AddScoped<IDatabaseService, DatabaseService>();
+            .AddScoped<IDatabaseService, DatabaseService>()
+            .AddScoped<IThreatsService, ThreatsService>();
         
         return services;
     }
@@ -123,6 +124,7 @@ public static class Configuration
 
                 quartz.AddTrigger(opts => opts
                     .ForJob(jobKey)
+                    .StartAt(DateBuilder.FutureDate(1, IntervalUnit.Hour))
                     .WithSimpleSchedule( s => s
                         .WithIntervalInHours(1)
                         .RepeatForever()
