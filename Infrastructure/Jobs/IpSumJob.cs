@@ -40,12 +40,18 @@ public class IpSumJob : IJob
 
         scrapedIpAddresses.ExceptWith(blacklistedIpsFromDb);
 
+        var newScrapingLog = new ScrapingLog
+        {
+            Date = DateTime.Now
+        };
+
         var newBlacklistedIpEntries = scrapedIpAddresses.Select(ip => new BlacklistedIpAddress
         {
             IpAddress = ip,
-            ScrapingLogId = Guid.Parse("6cc0346f-ad9a-4d8b-8d07-9f23950fa89f")
+            ScrapingLogId = newScrapingLog.Id
         });
-
+        
+        _unitOfWork.ScrapingLogRepository.Add(newScrapingLog);
         _unitOfWork.BlacklistedIpAddressRepository.AddRange(newBlacklistedIpEntries);
         await _unitOfWork.SaveChangesAsync();
     }

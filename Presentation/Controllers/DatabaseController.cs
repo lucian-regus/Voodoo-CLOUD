@@ -15,8 +15,8 @@ public class DatabaseController : ControllerBase
         _databaseService = databaseService;
     }
 
-    [HttpGet("updates/{delta}")]
-    public async Task<ActionResult<DatabaseUpdateResponse>> GetDatabaseUpdatesAsync([FromRoute] DateTime delta)
+    [HttpGet("updates")]
+    public async Task<ActionResult<DatabaseUpdateResponse>> GetDatabaseUpdatesAsync([FromQuery] DateTime delta)
     {
         var response = await _databaseService.GetDatabaseUpdatesAsync(delta);
 
