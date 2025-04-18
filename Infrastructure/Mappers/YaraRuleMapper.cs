@@ -9,6 +9,7 @@ public static class YaraRuleMapper
     {
         var response = new YaraRuleResponse();
         response.Rule = yaraRule.Rule;
+        response.WasRemoved = yaraRule.DeletedAt != null;
         
         return response;
     } 

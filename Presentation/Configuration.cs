@@ -140,7 +140,7 @@ public static class Configuration
         services
             .AddHttpClient<IpSumJob>(client =>
             {
-                client.BaseAddress = new Uri(configuration["IpSumTarget:BaseURL"]);
+                client.BaseAddress = new Uri(configuration["IPsum:BaseURL"]);
             });
 
         return services;

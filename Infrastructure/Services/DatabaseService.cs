@@ -16,14 +16,13 @@ public class DatabaseService : ServiceBase, IDatabaseService
 
     public async Task<DatabaseUpdateResponse> GetDatabaseUpdatesAsync(DateTime delta)
     {
-        var scrapingLog = await UnitOfWork.ScrapingLogRepository.GetByDeltaAsync(delta);
-        DateTime recordsAfter = scrapingLog == null
+        DateTime recordsAfter = delta == DateTime.MinValue
             ? DateTime.MinValue
-            : scrapingLog.Date;
+            : delta;
         
-        var malwareSignatures = await UnitOfWork.MalwareSignatureRepository.GetAllByScrapingLogTimeAsync(recordsAfter);
-        var blacklistedIpAddresses = await UnitOfWork.BlacklistedIpAddressRepository.GetAllByScrapingLogTimeAsync(recordsAfter);
-        var yaraRules = await UnitOfWork.YaraRuleRepository.GetAllByScrapingLogTimeAsync(recordsAfter);
+        var malwareSignatures = await UnitOfWork.MalwareSignatureRepository.GetAllByScrapingLogTimeAsync(recordsAfter, true);
+        var blacklistedIpAddresses = await UnitOfWork.BlacklistedIpAddressRepository.GetAllByScrapingLogTimeAsync(recordsAfter, true);
+        var yaraRules = await UnitOfWork.YaraRuleRepository.GetAllByScrapingLogTimeAsync(recordsAfter, true);
 
         var malwareSignaturesResponse = malwareSignatures
             .Select(e => e.ToMalwareSignatureResponse())

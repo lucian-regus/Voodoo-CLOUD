@@ -21,9 +21,9 @@ public class IpSumJob : IJob
 
     public async Task Execute(IJobExecutionContext context)
     {
-        var fileCount = IntegerType.FromString(_configuration["IpSumTarget:NumberOfFiles"]);
+        var fileCount = IntegerType.FromString(_configuration["IPsum:NumberOfFiles"]);
         
-        var fetchBlacklistedIpsTask = _unitOfWork.BlacklistedIpAddressRepository.GetAllAsync();
+        var fetchBlacklistedIpsTask = _unitOfWork.BlacklistedIpAddressRepository.GetAllAsync(true);
     
         var downloadTasks = Enumerable.Range(1, fileCount)
             .Select(fileNumber => _httpClient.GetStringAsync($"{fileNumber}.txt"))
@@ -44,7 +44,7 @@ public class IpSumJob : IJob
         {
             Date = DateTime.Now
         };
-
+        
         var newBlacklistedIpEntries = scrapedIpAddresses.Select(ip => new BlacklistedIpAddress
         {
             IpAddress = ip,

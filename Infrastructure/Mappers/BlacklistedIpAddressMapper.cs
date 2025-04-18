@@ -10,6 +10,7 @@ public static class BlacklistedIpAddressMapper
     {
         var response = new BlacklistedIpAddressResponse();
         response.IpAddress = blacklistedIpAddress.IpAddress;
+        response.WasRemoved = blacklistedIpAddress.DeletedAt != null;
         
         return response;
     }

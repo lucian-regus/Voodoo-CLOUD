@@ -44,7 +44,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("ScrapingLogId");
 
-                    b.ToTable("BlacklistedIpAddresses");
+                    b.ToTable("BlacklistedIpAddresses", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.MalwareSignature", b =>
@@ -69,7 +69,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("ScrapingLogId");
 
-                    b.ToTable("MalwareSignatures");
+                    b.ToTable("MalwareSignatures", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.ScrapingLog", b =>
@@ -88,7 +88,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("DeletedAt");
 
-                    b.ToTable("ScrapingLogs");
+                    b.ToTable("ScrapingLogs", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.YaraRule", b =>
@@ -112,7 +112,7 @@ namespace Domain.Migrations
 
                     b.HasIndex("ScrapingLogId");
 
-                    b.ToTable("YaraRules");
+                    b.ToTable("YaraRules", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Models.BlacklistedIpAddress", b =>
